@@ -1,0 +1,9 @@
+[package]
+name = "adventofcode-2018"
+version = "0.1.0"
+authors = ["Thomas McNiven <hello@vevix.net>"]
+edition = "2018"
+
+[dependencies]
+aoc-runner = "*"
+aoc-runner-derive = "*"
