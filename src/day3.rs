@@ -1,12 +1,12 @@
 use regex::Regex;
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 
 pub struct Claim {
-    id: i32,
-    x: i32,
-    y: i32,
-    w: i32,
-    h: i32,
+    id: u32,
+    x: u32,
+    y: u32,
+    w: u32,
+    h: u32,
 }
 
 #[aoc_generator(day3)]
@@ -17,27 +17,22 @@ pub fn input_generator(input: &str) -> Vec<Claim> {
         .map(|s| {
             let matches = re.captures(s).unwrap();
             Claim {
-                id: matches[1].parse::<i32>().unwrap(),
-                x: matches[2].parse::<i32>().unwrap(),
-                y: matches[3].parse::<i32>().unwrap(),
-                w: matches[4].parse::<i32>().unwrap(),
-                h: matches[5].parse::<i32>().unwrap(),
+                id: matches[1].parse().unwrap(),
+                x: matches[2].parse().unwrap(),
+                y: matches[3].parse().unwrap(),
+                w: matches[4].parse().unwrap(),
+                h: matches[5].parse().unwrap(),
             }
         })
         .collect()
 }
 
-// { (x + w): { (y + h): [ids, ...] } }
-fn build_map(claims: &[Claim]) -> HashMap<i32, HashMap<i32, Vec<i32>>> {
-    let mut map: HashMap<i32, HashMap<i32, Vec<i32>>> = HashMap::new();
+fn build_map(claims: &[Claim]) -> HashMap<(u32, u32), Vec<u32>> {
+    let mut map: HashMap<_, Vec<u32>> = HashMap::new();
     for claim in claims {
-        for w in 0..claim.w {
-            for h in 0..claim.h {
-                let x = map
-                    .entry(claim.x + w)
-                    .or_insert_with(HashMap::<i32, Vec<i32>>::new);
-                let y = x.entry(claim.y + h).or_insert_with(Vec::new);
-                y.push(claim.id);
+        for i in claim.x..claim.x + claim.w {
+            for j in claim.y..claim.y + claim.h {
+                map.entry((i, j)).or_default().push(claim.id);
             }
         }
     }
@@ -45,29 +40,24 @@ fn build_map(claims: &[Claim]) -> HashMap<i32, HashMap<i32, Vec<i32>>> {
 }
 
 #[aoc(day3, part1)]
-pub fn solve_part1(claims: &[Claim]) -> i32 {
-    build_map(claims).values().fold(0, |a, b| {
-        a + b.values().filter(|x| x.len() > 1).count() as i32
-    })
+pub fn solve_part1(claims: &[Claim]) -> u32 {
+    build_map(claims).values().filter(|x| x.len() > 1).count() as u32
 }
 
 #[aoc(day3, part2)]
-pub fn solve_part2(claims: &[Claim]) -> i32 {
-    let map = build_map(claims);
-    let all_ids: Vec<i32> = claims.iter().map(|x| x.id).collect();
-    let mut overlapping_ids: Vec<i32> = map
+pub fn solve_part2(claims: &[Claim]) -> u32 {
+    let all_ids: HashSet<_> = claims.iter().map(|x| x.id).collect();
+    let other_ids: HashSet<_> = build_map(claims)
         .values()
-        .flat_map(|x| x.values().cloned().filter(|y| y.len() > 1))
+        .cloned()
+        .filter(|x| x.len() > 1)
         .flatten()
         .collect();
-    overlapping_ids.sort();
-    overlapping_ids.dedup();
 
     for id in all_ids {
-        if !overlapping_ids.contains(&id) {
+        if !other_ids.contains(&id) {
             return id;
         }
     }
-
     unreachable!();
 }

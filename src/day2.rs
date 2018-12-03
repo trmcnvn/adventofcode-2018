@@ -1,21 +1,15 @@
 use std::collections::HashMap;
 
 #[aoc(day2, part1)]
-pub fn solve_part1(input: &str) -> i32 {
+pub fn solve_part1(input: &str) -> u32 {
     let (mut doubles, mut triples) = (0, 0);
     for id in input.lines() {
-        let mut map = HashMap::new();
-        for c in id.chars() {
-            let entry = map.entry(c).or_insert(0);
-            *entry += 1;
-        }
-
-        if map.values().any(|&x| x == 2) {
-            doubles += 1;
-        }
-        if map.values().any(|&x| x == 3) {
-            triples += 1;
-        }
+        let mut map: HashMap<_, u32> = HashMap::new();
+        id.chars().for_each(|c| {
+            *map.entry(c).or_default() += 1;
+        });
+        doubles += map.values().any(|&x| x == 2) as u32;
+        triples += map.values().any(|&x| x == 3) as u32;
     }
     doubles * triples
 }
