@@ -1,13 +1,6 @@
 use regex::Regex;
 use std::collections::HashMap;
 
-const CLAIM_PATTERN: &str = r"(?x)
-    (?P<id>\d+)
-    \s@\s
-    (?P<x>\d+),(?P<y>\d+):
-    \s
-    (?P<w>\d+)x(?P<h>\d+)";
-
 pub struct Claim {
     id: i32,
     x: i32,
@@ -18,23 +11,23 @@ pub struct Claim {
 
 #[aoc_generator(day3)]
 pub fn input_generator(input: &str) -> Vec<Claim> {
-    let re = Regex::new(CLAIM_PATTERN).unwrap();
+    let re = Regex::new(r"#(\d+) @ (\d+),(\d+): (\d+)x(\d+)").unwrap();
     input
         .lines()
         .map(|s| {
             let matches = re.captures(s).unwrap();
             Claim {
-                id: matches["id"].parse::<i32>().unwrap(),
-                x: matches["x"].parse::<i32>().unwrap(),
-                y: matches["y"].parse::<i32>().unwrap(),
-                w: matches["w"].parse::<i32>().unwrap(),
-                h: matches["h"].parse::<i32>().unwrap(),
+                id: matches[1].parse::<i32>().unwrap(),
+                x: matches[2].parse::<i32>().unwrap(),
+                y: matches[3].parse::<i32>().unwrap(),
+                w: matches[4].parse::<i32>().unwrap(),
+                h: matches[5].parse::<i32>().unwrap(),
             }
         })
         .collect()
 }
 
-// Build map of [x + w][y + h] = <# of overlaps>
+// { (x + w): { (y + h): [ids, ...] } }
 fn build_map(claims: &[Claim]) -> HashMap<i32, HashMap<i32, Vec<i32>>> {
     let mut map: HashMap<i32, HashMap<i32, Vec<i32>>> = HashMap::new();
     for claim in claims {
@@ -62,11 +55,13 @@ pub fn solve_part1(claims: &[Claim]) -> i32 {
 pub fn solve_part2(claims: &[Claim]) -> i32 {
     let map = build_map(claims);
     let all_ids: Vec<i32> = claims.iter().map(|x| x.id).collect();
-    let overlapping_ids: Vec<i32> = map
+    let mut overlapping_ids: Vec<i32> = map
         .values()
         .flat_map(|x| x.values().cloned().filter(|y| y.len() > 1))
         .flatten()
         .collect();
+    overlapping_ids.sort();
+    overlapping_ids.dedup();
 
     for id in all_ids {
         if !overlapping_ids.contains(&id) {
