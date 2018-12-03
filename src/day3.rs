@@ -1,5 +1,5 @@
 use regex::Regex;
-use std::collections::{HashMap, HashSet};
+use hashbrown::{HashMap, HashSet};
 
 pub struct Claim {
     id: u32,

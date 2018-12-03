@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use hashbrown::HashMap;
 
 #[aoc(day2, part1)]
 pub fn solve_part1(input: &str) -> u32 {

@@ -1,4 +1,4 @@
-use std::collections::HashSet;
+use hashbrown::HashSet;
 
 #[aoc_generator(day1)]
 pub fn input_generator(input: &str) -> Vec<i32> {

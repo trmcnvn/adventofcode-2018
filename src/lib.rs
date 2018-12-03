@@ -1,4 +1,6 @@
 extern crate aoc_runner;
+extern crate hashbrown;
+
 #[macro_use]
 extern crate aoc_runner_derive;
 
