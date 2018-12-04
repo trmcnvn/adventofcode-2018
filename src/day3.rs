@@ -1,5 +1,5 @@
-use regex::Regex;
 use hashbrown::{HashMap, HashSet};
+use regex::Regex;
 
 pub struct Claim {
     id: u32,
