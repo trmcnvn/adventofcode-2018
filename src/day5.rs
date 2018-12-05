@@ -49,3 +49,22 @@ fn react_polymer(chars: &[char]) -> Vec<char> {
     }
     slice
 }
+
+#[cfg(test)]
+mod tests {
+    use crate::day5::*;
+
+    #[test]
+    fn part1() {
+        let test_input = input_generator("dabAcCaCBAcCcaDA");
+        let result = solve_part1(&test_input);
+        assert_eq!(result, 10);
+    }
+
+    #[test]
+    fn part2() {
+        let test_input = input_generator("dabAcCaCBAcCcaDA");
+        let result = solve_part2(&test_input);
+        assert_eq!(result, 4);
+    }
+}

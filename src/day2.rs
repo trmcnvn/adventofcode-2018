@@ -48,3 +48,36 @@ fn is_single_distance(first: &str, second: &str) -> bool {
 
     true
 }
+
+#[cfg(test)]
+mod tests {
+    use crate::day2::*;
+
+    #[test]
+    fn part1() {
+        let result = solve_part1(
+            r"abcdef
+bababc
+abbcde
+abcccd
+aabcdd
+abcdee
+ababab",
+        );
+        assert_eq!(result, 12);
+    }
+
+    #[test]
+    fn part2() {
+        let result = solve_part2(
+            r"abcde
+fghij
+klmno
+pqrst
+fguij
+axcye
+wvxyz",
+        );
+        assert_eq!(result, "fgij");
+    }
+}

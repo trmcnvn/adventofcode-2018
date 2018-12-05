@@ -61,3 +61,30 @@ pub fn solve_part2(claims: &[Claim]) -> u32 {
     }
     unreachable!();
 }
+
+#[cfg(test)]
+mod tests {
+    use crate::day3::*;
+
+    #[test]
+    fn part1() {
+        let test_input = input_generator(
+            r"#1 @ 1,3: 4x4
+#2 @ 3,1: 4x4
+#3 @ 5,5: 2x2",
+        );
+        let result = solve_part1(&test_input);
+        assert_eq!(result, 4);
+    }
+
+    #[test]
+    fn part2() {
+        let test_input = input_generator(
+            r"#1 @ 1,3: 4x4
+#2 @ 3,1: 4x4
+#3 @ 5,5: 2x2",
+        );
+        let result = solve_part2(&test_input);
+        assert_eq!(result, 3);
+    }
+}

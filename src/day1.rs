@@ -24,3 +24,32 @@ pub fn solve_part2(input: &[i32]) -> i32 {
 
     frequency
 }
+
+#[cfg(test)]
+mod tests {
+    use crate::day1::*;
+
+    #[test]
+    fn part1() {
+        let test_input = input_generator(
+            r"+1
+-2
++3
++1",
+        );
+        let result = solve_part1(&test_input);
+        assert_eq!(result, 3);
+    }
+
+    #[test]
+    fn part2() {
+        let test_input = input_generator(
+            r"+1
+-2
++3
++1",
+        );
+        let result = solve_part2(&test_input);
+        assert_eq!(result, 2);
+    }
+}
