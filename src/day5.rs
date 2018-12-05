@@ -4,46 +4,48 @@ pub fn input_generator(input: &str) -> Vec<char> {
 }
 
 #[aoc(day5, part1)]
-pub fn solve_part1(chars: &Vec<char>) -> usize {
-    react_polymer(chars)
+pub fn solve_part1(chars: &[char]) -> usize {
+    react_polymer(chars).len()
 }
 
 #[aoc(day5, part2)]
-pub fn solve_part2(input: &Vec<char>) -> usize {
+pub fn solve_part2(chars: &[char]) -> usize {
+    let polymer = react_polymer(chars);
     let alphabet: Vec<_> = "abcdefghijklmnopqrstuvwxyz".chars().collect();
-    let mut min_size: usize = 0;
-    for letter in alphabet {
-        let remaining: Vec<_> = input.clone().into_iter().filter(|c| !c.eq_ignore_ascii_case(&letter)).collect();
-        let size = react_polymer(&remaining);
-        if min_size == 0 || size < min_size { min_size = size; }
-    }
-    min_size
+    let w: Vec<_> = alphabet
+        .iter()
+        .map(|c| {
+            let x: String = polymer.iter().collect();
+            let u: char = c.to_ascii_uppercase();
+            let y: Vec<char> = x
+                .chars()
+                .filter_map(|x| match x {
+                    _ if x == *c => None,
+                    _ if x == u => None,
+                    _ => Some(x),
+                })
+                .collect();
+            react_polymer(&y).len()
+        })
+        .collect();
+    *w.iter().min().unwrap()
 }
 
-fn react_polymer(input: &Vec<char>) -> usize {
-    let mut chars = input.clone();
-    let func = |a: char, b: char| -> bool {
-        if a.eq_ignore_ascii_case(&b) {
-            if a.is_ascii_uppercase() && b.is_ascii_lowercase() { return true; }
-            if a.is_ascii_lowercase() && b.is_ascii_uppercase() { return true; }
+fn react_polymer(chars: &[char]) -> Vec<char> {
+    let mut slice: Vec<char> = Vec::new();
+    for c in chars {
+        slice.push(*c);
+        if slice.len() < 2 {
+            continue;
         }
-        false
-    };
-    let mut last_size = 0;
-    loop {
-        let mut i = 0;
-        while i < chars.len() {
-            if i == 0 { i += 1; continue; }
-            let last_char = chars[i - 1];
-            if func(chars[i], last_char) {
-                chars.remove(i);
-                chars.remove(i - 1);
-            } else {
-                i += 1;
-            }
+        let x = slice[slice.len() - 2];
+        if x.eq_ignore_ascii_case(&c)
+            && ((x.is_ascii_uppercase() && c.is_ascii_lowercase())
+                || (x.is_ascii_lowercase() && c.is_ascii_uppercase()))
+        {
+            slice.remove(slice.len() - 2);
+            slice.remove(slice.len() - 1);
         }
-        if chars.len() == last_size { break; }
-        last_size = chars.len();
     }
-    chars.len()
+    slice
 }

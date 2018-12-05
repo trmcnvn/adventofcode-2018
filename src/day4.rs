@@ -19,17 +19,17 @@ fn input_generator(input: &str) -> HashMap<u32, HashMap<u32, u32>> {
         match &matches[2] {
             "Guard" => {
                 last_guard_id = matches[3].parse().unwrap();
-            },
+            }
             "falls" => {
                 last_sleeping_minute = minute;
-            },
+            }
             "wakes" => {
                 for minute in last_sleeping_minute..minute {
                     let entry = activities.entry(last_guard_id).or_default();
                     *entry.entry(minute).or_default() += 1;
                 }
-            },
-            _ => panic!("uhhh....") // shouldn't happen? bad input
+            }
+            _ => panic!("uhhh...."), // shouldn't happen? bad input
         }
     }
     activities
@@ -38,9 +38,10 @@ fn input_generator(input: &str) -> HashMap<u32, HashMap<u32, u32>> {
 #[aoc(day4, part1)]
 pub fn solve_part1(input: &str) -> u32 {
     let activities = input_generator(&input);
-    let (guard_id, minutes) = activities.iter().max_by_key(|(_, v)| {
-        v.values().sum::<u32>()
-    }).unwrap();
+    let (guard_id, minutes) = activities
+        .iter()
+        .max_by_key(|(_, v)| v.values().sum::<u32>())
+        .unwrap();
     let (minute, _) = minutes.iter().max_by_key(|&(_, &v)| v).unwrap();
     guard_id * minute
 }
@@ -48,9 +49,10 @@ pub fn solve_part1(input: &str) -> u32 {
 #[aoc(day4, part2)]
 pub fn solve_part2(input: &str) -> u32 {
     let activities = input_generator(&input);
-    let (guard_id, minutes) = activities.iter().max_by_key(|(_k, v)| {
-        v.values().max()
-    }).unwrap();
+    let (guard_id, minutes) = activities
+        .iter()
+        .max_by_key(|(_k, v)| v.values().max())
+        .unwrap();
     let (minute, _) = minutes.iter().max_by_key(|&(_, &v)| v).unwrap();
     guard_id * minute
 }
