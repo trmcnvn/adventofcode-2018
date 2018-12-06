@@ -19,10 +19,10 @@ pub fn solve_part2(chars: &[char]) -> usize {
             let u: char = c.to_ascii_uppercase();
             let y: Vec<char> = x
                 .chars()
-                .filter_map(|x| match x {
-                    _ if x == *c => None,
-                    _ if x == u => None,
-                    _ => Some(x),
+                .filter(|x| match x {
+                    _ if x == c => false,
+                    _ if *x == u => false,
+                    _ => true,
                 })
                 .collect();
             react_polymer(&y).len()
