@@ -5,7 +5,7 @@ authors = ["Thomas McNiven <hello@vevix.net>"]
 edition = "2018"
 
 [dependencies]
-aoc-runner = "0.1.0"
-aoc-runner-derive = "0.1.6"
+aoc-runner = "0.2.0"
+aoc-runner-derive = "0.2.0"
 regex = "1"
 hashbrown = "0.1"
