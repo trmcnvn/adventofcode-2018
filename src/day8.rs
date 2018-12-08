@@ -80,6 +80,39 @@ pub fn solve_part2(input: &[usize]) -> usize {
     node.node_value()
 }
 
+fn solve_a_fast(iter: &mut Iter<usize>) -> usize {
+    match (iter.next().unwrap(), iter.next().unwrap()) {
+        (child_count, meta_count) => {
+            (0..*child_count).map(|_| solve_a_fast(iter)).sum::<usize>()
+                + iter.take(*meta_count).sum::<usize>()
+        }
+    }
+}
+
+fn solve_b_fast(iter: &mut Iter<usize>) -> usize {
+    match (iter.next().unwrap(), iter.next().unwrap()) {
+        (0, meta_count) => iter.take(*meta_count).sum(),
+        (child_count, meta_count) => {
+            let sums = (0..*child_count)
+                .map(|_| solve_b_fast(iter))
+                .collect::<Vec<usize>>();
+            iter.take(*meta_count).filter_map(|x| sums.get(x - 1)).sum()
+        }
+    }
+}
+
+#[aoc(day8, part1, fast)]
+pub fn solve_part1_fast(input: &[usize]) -> usize {
+    let mut iter = input.iter();
+    solve_a_fast(&mut iter)
+}
+
+#[aoc(day8, part2, fast)]
+pub fn solve_part2_fast(input: &[usize]) -> usize {
+    let mut iter = input.iter();
+    solve_b_fast(&mut iter)
+}
+
 #[cfg(test)]
 mod tests {
     use crate::day8::*;
@@ -95,6 +128,20 @@ mod tests {
     fn part2() {
         let input = input_generator("2 3 0 3 10 11 12 1 1 0 1 99 2 1 1 2");
         let result = solve_part2(&input);
+        assert_eq!(result, 66);
+    }
+
+    #[test]
+    fn part1_fast() {
+        let input = input_generator("2 3 0 3 10 11 12 1 1 0 1 99 2 1 1 2");
+        let result = solve_part1_fast(&input);
+        assert_eq!(result, 138);
+    }
+
+    #[test]
+    fn part2_fast() {
+        let input = input_generator("2 3 0 3 10 11 12 1 1 0 1 99 2 1 1 2");
+        let result = solve_part2_fast(&input);
         assert_eq!(result, 66);
     }
 }
