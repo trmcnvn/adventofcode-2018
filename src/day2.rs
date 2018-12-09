@@ -1,3 +1,4 @@
+use aoc_runner_derive::aoc;
 use hashbrown::HashMap;
 
 #[aoc(day2, part1)]

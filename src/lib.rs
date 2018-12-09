@@ -1,11 +1,7 @@
-#![feature(drain_filter)]
 #![feature(vec_remove_item)]
+#![feature(linked_list_extras)]
 
-extern crate aoc_runner;
-extern crate hashbrown;
-
-#[macro_use]
-extern crate aoc_runner_derive;
+use aoc_runner_derive::aoc_lib;
 
 mod day1;
 mod day2;
@@ -15,5 +11,6 @@ mod day5;
 mod day6;
 mod day7;
 mod day8;
+mod day9;
 
 aoc_lib! { year = 2018 }

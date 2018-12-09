@@ -1,3 +1,4 @@
+use aoc_runner_derive::aoc;
 use hashbrown::HashMap;
 use regex::Regex;
 
