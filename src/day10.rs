@@ -15,7 +15,7 @@ pub struct Point {
 
 impl Point {
     fn new(coords: &[isize]) -> Self {
-        Point {
+        Self {
             position: Coord {
                 x: coords[0],
                 y: coords[1],
@@ -60,12 +60,12 @@ pub fn input_generator(input: &str) -> Vec<Point> {
 
 #[aoc(day10, part1)]
 pub fn solve_part1(points: &[Point]) -> String {
-    solve(&points).0
+    solve(points).0
 }
 
 #[aoc(day10, part2)]
 pub fn solve_part2(points: &[Point]) -> usize {
-    solve(&points).1
+    solve(points).1
 }
 
 fn solve(points: &[Point]) -> (String, usize) {
@@ -76,7 +76,7 @@ fn solve(points: &[Point]) -> (String, usize) {
 
     for step in 0.. {
         let mut mut_points = points.to_vec();
-        for point in mut_points.iter_mut() {
+        for point in &mut mut_points {
             point.step(step);
         }
 

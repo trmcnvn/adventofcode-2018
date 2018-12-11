@@ -41,7 +41,7 @@ fn react_polymer(chars: &[char]) -> Vec<char> {
             continue;
         }
         let x = slice[slice.len() - 2];
-        if x.eq_ignore_ascii_case(&c)
+        if x.eq_ignore_ascii_case(c)
             && ((x.is_ascii_uppercase() && c.is_ascii_lowercase())
                 || (x.is_ascii_lowercase() && c.is_ascii_uppercase()))
         {

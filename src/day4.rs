@@ -38,7 +38,7 @@ fn input_generator(input: &str) -> HashMap<u32, HashMap<u32, u32>> {
 
 #[aoc(day4, part1)]
 pub fn solve_part1(input: &str) -> u32 {
-    let activities = input_generator(&input);
+    let activities = input_generator(input);
     let (guard_id, minutes) = activities
         .iter()
         .max_by_key(|(_, v)| v.values().sum::<u32>())
@@ -49,7 +49,7 @@ pub fn solve_part1(input: &str) -> u32 {
 
 #[aoc(day4, part2)]
 pub fn solve_part2(input: &str) -> u32 {
-    let activities = input_generator(&input);
+    let activities = input_generator(input);
     let (guard_id, minutes) = activities
         .iter()
         .max_by_key(|(_k, v)| v.values().max())

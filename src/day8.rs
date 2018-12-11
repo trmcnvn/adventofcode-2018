@@ -14,7 +14,7 @@ pub struct Node {
 
 impl Node {
     fn new(iter: &mut Iter<usize>) -> Self {
-        let mut node = Node {
+        let mut node = Self {
             header: NodeHeader {
                 child_count: *iter.next().unwrap(),
                 metadata_count: *iter.next().unwrap(),
@@ -24,7 +24,7 @@ impl Node {
         };
 
         while node.header.child_count != node.children.len() {
-            let child = Node::new(iter);
+            let child = Self::new(iter);
             node.children.push(child);
         }
 
@@ -39,7 +39,7 @@ impl Node {
 
     fn metadata_sum(&self) -> usize {
         let mut data: Vec<usize> = Vec::new();
-        for child in self.children.iter() {
+        for child in &self.children {
             data.push(child.metadata_sum());
         }
         data.push(self.metadata.iter().sum());
@@ -49,7 +49,7 @@ impl Node {
     fn node_value(&self) -> usize {
         let mut data: Vec<usize> = Vec::new();
         if self.header.child_count > 0 {
-            for meta_index in self.metadata.iter() {
+            for meta_index in &self.metadata {
                 match self.children.get(*meta_index - 1) {
                     Some(child) => {
                         data.push(child.node_value());
