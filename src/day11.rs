@@ -52,7 +52,7 @@ pub fn solve_part2(input: &str) -> String {
     for x in 0..GRID_SIZE {
         let mut sum = 0;
         for y in 0..GRID_SIZE {
-            sum = sum + grid[x][y];
+            sum += grid[x][y];
             if x == 0 {
                 grid[x][y] = sum
             } else {
@@ -86,7 +86,7 @@ mod tests {
 
     #[test]
     fn part1() {
-        let mut result = solve_part1("42");
+        let result = solve_part1("42");
         assert_eq!(result, "21,61");
     }
 
