@@ -99,7 +99,7 @@ mod tests {
     #[test]
     fn part_1() {
         let input = input_generator(
-            r"initial state: #..#.#..##......###...###
+            "initial state: #..#.#..##......###...###
 ...## => #
 ..#.. => #
 .#... => #
@@ -122,7 +122,7 @@ mod tests {
     #[test]
     fn part_2() {
         let input = input_generator(
-            r"initial state: #..#.#..##......###...###
+            "initial state: #..#.#..##......###...###
 ...## => #
 ..#.. => #
 .#... => #

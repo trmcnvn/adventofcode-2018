@@ -33,7 +33,7 @@ mod tests {
     #[test]
     fn part1() {
         let test_input = input_generator(
-            r"+1
+            "+1
 -2
 +3
 +1",
@@ -45,7 +45,7 @@ mod tests {
     #[test]
     fn part2() {
         let test_input = input_generator(
-            r"+1
+            "+1
 -2
 +3
 +1",

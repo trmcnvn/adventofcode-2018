@@ -70,7 +70,7 @@ mod tests {
     #[test]
     fn part1() {
         let test_input = input_generator(
-            r"#1 @ 1,3: 4x4
+            "#1 @ 1,3: 4x4
 #2 @ 3,1: 4x4
 #3 @ 5,5: 2x2",
         );
@@ -81,7 +81,7 @@ mod tests {
     #[test]
     fn part2() {
         let test_input = input_generator(
-            r"#1 @ 1,3: 4x4
+            "#1 @ 1,3: 4x4
 #2 @ 3,1: 4x4
 #3 @ 5,5: 2x2",
         );

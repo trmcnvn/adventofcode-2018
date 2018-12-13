@@ -57,7 +57,7 @@ mod tests {
     #[test]
     fn part1() {
         let result = solve_part1(
-            r"abcdef
+            "abcdef
 bababc
 abbcde
 abcccd
@@ -71,7 +71,7 @@ ababab",
     #[test]
     fn part2() {
         let result = solve_part2(
-            r"abcde
+            "abcde
 fghij
 klmno
 pqrst

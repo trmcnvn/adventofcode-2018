@@ -65,7 +65,7 @@ mod tests {
     #[test]
     fn part1() {
         let result = solve_part1(
-            r"[1518-11-01 00:00] Guard #10 begins shift
+            "[1518-11-01 00:00] Guard #10 begins shift
 [1518-11-01 00:05] falls asleep
 [1518-11-01 00:25] wakes up
 [1518-11-01 00:30] falls asleep
@@ -89,7 +89,7 @@ mod tests {
     #[test]
     fn part2() {
         let result = solve_part2(
-            r"[1518-11-01 00:00] Guard #10 begins shift
+            "[1518-11-01 00:00] Guard #10 begins shift
 [1518-11-01 00:05] falls asleep
 [1518-11-01 00:25] wakes up
 [1518-11-01 00:30] falls asleep

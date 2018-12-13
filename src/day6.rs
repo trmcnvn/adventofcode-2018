@@ -108,7 +108,7 @@ mod tests {
     #[test]
     fn part1() {
         let coords = input_generator(
-            r"1, 1
+            "1, 1
 1, 6
 8, 3
 3, 4
@@ -122,7 +122,7 @@ mod tests {
     #[test]
     fn part2() {
         let coords = input_generator(
-            r"1, 1
+            "1, 1
 1, 6
 8, 3
 3, 4
