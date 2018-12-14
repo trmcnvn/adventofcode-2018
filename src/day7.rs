@@ -86,7 +86,7 @@ fn part2_solver(pairs: &[Vec<char>], worker_count: usize, duration: usize) -> us
         for task in valid_tasks {
             if workers.len() < worker_count {
                 let work_time = total_time + duration + (*task as u8 - 64) as usize;
-                if !workers.contains_key(&task) {
+                if !workers.contains_key(task) {
                     workers.insert(*task, work_time);
                 }
             }
@@ -96,7 +96,7 @@ fn part2_solver(pairs: &[Vec<char>], worker_count: usize, duration: usize) -> us
             if *work_time == (total_time + 1) {
                 workers.remove(task);
                 done.push(*task);
-                todo.remove_item(&task);
+                todo.remove_item(task);
             }
         }
 

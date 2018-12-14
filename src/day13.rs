@@ -13,7 +13,7 @@ enum Direction {
 enum Turn {
     Left,
     Straight,
-    Right
+    Right,
 }
 
 #[derive(Clone, PartialEq)]
@@ -27,10 +27,10 @@ struct Cart {
 impl Cart {
     fn new(x: usize, y: usize, direction: Direction, next_turn: Turn) -> Self {
         Self {
-            x: x,
-            y: y,
-            direction: direction,
-            next_turn: next_turn,
+            x,
+            y,
+            direction,
+            next_turn,
         }
     }
 }
@@ -49,19 +49,19 @@ fn input_generator(_input: &str) -> (CartVec, TileMap) {
                 b'^' => {
                     carts.push(Cart::new(x, y, Direction::North, Turn::Left));
                     b'|'
-                },
+                }
                 b'<' => {
                     carts.push(Cart::new(x, y, Direction::West, Turn::Left));
                     b'-'
-                },
+                }
                 b'v' => {
                     carts.push(Cart::new(x, y, Direction::South, Turn::Left));
                     b'|'
-                },
+                }
                 b'>' => {
                     carts.push(Cart::new(x, y, Direction::East, Turn::Left));
                     b'-'
-                },
+                }
                 b' ' => continue,
                 _ => *byte,
             };
@@ -107,13 +107,13 @@ fn get_direction(direction: &Direction, byte: u8) -> Direction {
             Direction::East => Direction::South,
             Direction::South => Direction::West,
             Direction::West => Direction::North,
-        }
-        _ => unreachable!()
+        },
+        _ => unreachable!(),
     }
 }
 
-fn solve(carts: &CartVec, tiles: &TileMap, should_remove: bool) -> String {
-    let mut carts = carts.clone();
+fn solve(carts: &[Cart], tiles: &TileMap, should_remove: bool) -> String {
+    let mut carts = carts.to_owned();
     loop {
         carts.sort_by_key(|cart| cart.y);
         for (index, cart) in carts.clone().into_iter().enumerate() {
@@ -130,7 +130,10 @@ fn solve(carts: &CartVec, tiles: &TileMap, should_remove: bool) -> String {
 
             let (direction, next_turn) = match tiles[&x][&y] {
                 b'/' => (get_direction(&cart.direction, b'/'), cart.next_turn.clone()),
-                b'\\' => (get_direction(&cart.direction, b'\\'), cart.next_turn.clone()),
+                b'\\' => (
+                    get_direction(&cart.direction, b'\\'),
+                    cart.next_turn.clone(),
+                ),
                 b'+' => match cart.next_turn {
                     Turn::Left => (get_direction(&cart.direction, b'<'), Turn::Straight),
                     Turn::Straight => (cart.direction.clone(), Turn::Right),
