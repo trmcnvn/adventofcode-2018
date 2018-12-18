@@ -1,5 +1,4 @@
 use aoc_runner_derive::{aoc, aoc_generator};
-use hashbrown::hash_map::Entry;
 use hashbrown::HashMap;
 use regex::Regex;
 
@@ -205,7 +204,11 @@ fn solve_part2(input: &AOCResult) -> usize {
     let mut opcodes = HashMap::new();
     while opcodes.len() < 16 {
         for possibilities in &candidates {
-            let new: Vec<(usize, Opcode)> = possibilities.iter().cloned().filter(|p| !opcodes.contains_key(&p.0)).collect();
+            let new: Vec<(usize, Opcode)> = possibilities
+                .iter()
+                .cloned()
+                .filter(|p| !opcodes.contains_key(&p.0))
+                .collect();
             if new.len() == 1 {
                 opcodes.insert(new[0].0, new[0].1.clone());
             }
@@ -215,7 +218,7 @@ fn solve_part2(input: &AOCResult) -> usize {
     let mut registers = vec![0, 0, 0, 0];
     for instruction in &input.1 {
         if let Some(opcode) = opcodes.get(&instruction[0]) {
-            let result = handle_opcode(opcode.clone(), &registers, &instruction);
+            let result = handle_opcode(opcode.clone(), &registers, instruction);
             registers[instruction[3]] = result;
         }
     }
