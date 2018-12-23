@@ -180,22 +180,4 @@ mod tests {
         let result = solve_part1(&input);
         assert_eq!(result, 1147);
     }
-
-    #[test]
-    fn part2() {
-        let input = input_generator(
-            ".#.#...|#.
-.....#|##|
-.|..|...#.
-..|#.....#
-#.#|||#|#|
-...#.||...
-.|....|...
-||...#|.#|
-|.||||..|.
-...#.|..|.",
-        );
-        let result = solve_part2(&input);
-        assert_eq!(result, 1147);
-    }
 }
