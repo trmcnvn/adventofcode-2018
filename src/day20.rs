@@ -3,9 +3,9 @@
 ///
 /// Hoping to return and redo a solution using Pest or another parser.
 use aoc_runner_derive::{aoc, aoc_generator};
-use std::collections::{BTreeMap, BTreeSet};
 use hashbrown::HashMap;
 use pathfinding::prelude::dijkstra_all;
+use std::collections::{BTreeMap, BTreeSet};
 
 type Point = (isize, isize);
 
@@ -17,7 +17,9 @@ fn input_generator(input: &str) -> HashMap<Point, (Point, isize)> {
         map.get(pos)
             .into_iter()
             .flat_map(|neighbours| neighbours.iter().map(|n| (*n, 1)))
-    }).into_iter().collect()
+    })
+    .into_iter()
+    .collect()
 }
 
 #[aoc(day20, part1)]
